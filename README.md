@@ -1,4 +1,4 @@
-Autosplitters for various AwesomeSoftInc games.
+Autosplitters for various [AwesomeSoft](https://funnywa.rs) games.
 
 ## Table of Contents
 
