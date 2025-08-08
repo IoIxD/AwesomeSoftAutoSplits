@@ -55,6 +55,7 @@ startup {
     settings.Add("Hour6", true, "5AM");
     settings.Add("Hour7", true, "6AM");
 }
+
 update {
     if(!vars.NeedSetGSPointer) {
         vars.SetupGameStatePointer();
@@ -62,7 +63,8 @@ update {
     }
     vars.currentScreen = memory.ReadValue<byte>((IntPtr)(vars.GameStatePointer + 0x36E));
     vars.currentTime = memory.ReadValue<long>((IntPtr)(vars.GameStatePointer + 0x1F0));
-    // print(vars.currentTime.ToString());
+
+    timer.IsGameTimePaused = (vars.currentScreen == 5 || vars.currentScreen == 6);
 }
 
 start {
