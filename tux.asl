@@ -12,8 +12,9 @@ init {
         var mainModule = modules.First();
 
         var scanner = new SignatureScanner(game, mainModule.BaseAddress, mainModule.ModuleMemorySize);
-
-        // This signature closely matches the Audio struct at the beginning of ONAT's State variable. We look for this, then use this for the offset of any other variables we need.
+      
+        // This signature closely matches the beginning of ONAT's State variable (What this is I have no idea, the games in Rust which means it shifts around memory at compile time). 
+        // We look for this, consider it the beginning of the struct (this is, surprisingly, very consistent)
         var target = new SigScanTarget(0, "00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? DC ?? ?? ?? ?? ?? ?? ?? DC ?? ?? ?? ?? ?? ?? ?? DC ?? ?? ?? ?? ?? ?? ?? DC ?? ?? ?? ?? ?? ?? ?? DC ?? ?? ?? ?? ?? ?? ?? DC ?? ?? ?? ?? ?? ?? ??");
 
         // returns all addresses which matched the target
@@ -55,7 +56,6 @@ startup {
     settings.Add("Hour6", true, "5AM");
     settings.Add("Hour7", true, "6AM");
 }
-
 update {
     if(!vars.NeedSetGSPointer) {
         vars.SetupGameStatePointer();
@@ -72,6 +72,7 @@ start {
         return true;
     }
 }
+
 
 reset {
     if(vars.currentScreen == 0) {
